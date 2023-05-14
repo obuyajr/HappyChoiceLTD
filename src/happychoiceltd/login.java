@@ -69,8 +69,10 @@ public class login extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("USERNAME");
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("PASSWORD");
 
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
@@ -81,8 +83,10 @@ public class login extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "RECEPTIONIST" }));
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("USERTYPE");
 
+        btn_login.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_login.setText("LOGIN");
 
         btn_exit.setText("EXIT");
