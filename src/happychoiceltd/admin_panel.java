@@ -73,6 +73,7 @@ public class admin_panel extends javax.swing.JFrame {
         btn_showRooms = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -234,6 +235,8 @@ public class admin_panel extends javax.swing.JFrame {
 
         jButton7.setText("jButton7");
 
+        jButton8.setText("jButton8");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -249,7 +252,9 @@ public class admin_panel extends javax.swing.JFrame {
                                 .addGap(71, 71, 71)
                                 .addComponent(btn_showRooms))
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(109, 109, 109)
+                                .addContainerGap()
+                                .addComponent(jButton8)
+                                .addGap(28, 28, 28)
                                 .addComponent(jButton7)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -260,7 +265,9 @@ public class admin_panel extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(btn_showRooms)
                 .addGap(44, 44, 44)
-                .addComponent(jButton7)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton7)
+                    .addComponent(jButton8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -611,6 +618,7 @@ public class admin_panel extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
