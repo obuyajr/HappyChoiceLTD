@@ -102,7 +102,7 @@ public class admin_panel extends javax.swing.JFrame {
         txt_price = new javax.swing.JTextField();
         btn_save = new javax.swing.JButton();
         btn_delete = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btn_edit = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btn_showRooms = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -166,9 +166,14 @@ public class admin_panel extends javax.swing.JFrame {
         btn_delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/trash-solid-24.png"))); // NOI18N
         btn_delete.setText("DELETE");
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit-alt-regular-24.png"))); // NOI18N
-        jButton5.setText("EDIT");
+        btn_edit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit-alt-regular-24.png"))); // NOI18N
+        btn_edit.setText("EDIT");
+        btn_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -180,7 +185,7 @@ public class admin_panel extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(btn_save)
                         .addGap(17, 17, 17)
-                        .addComponent(jButton5)
+                        .addComponent(btn_edit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_delete))
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -220,7 +225,7 @@ public class admin_panel extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_delete)
-                    .addComponent(jButton5))
+                    .addComponent(btn_edit))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -574,6 +579,42 @@ public class admin_panel extends javax.swing.JFrame {
          txt_price.setText(df.getValueAt(selectIndex,2).toString());
     }//GEN-LAST:event_rooms_displayMouseClicked
 
+    private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel df = (DefaultTableModel)rooms_display.getModel();
+        int selectIndex = rooms_display.getSelectedRow();
+        
+        String roomNo = txt_roomNo.getText();
+        String roomType = jcombo_roomType.getSelectedItem().toString();
+        String amount = txt_price.getText();
+        
+        try {
+            pst = (PreparedStatement) con.prepareStatement("update rooms set room_no=?, room_type = ? where price = ?");
+            
+            pst.setString(1, roomNo);
+            
+            pst.setString(2, roomType);
+            pst.setString(3, amount);
+            
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Room Edited successfully");
+            
+            //clear form after entry
+            
+           // Clear the fields
+            txt_roomNo.setText("");
+            jcombo_roomType.setSelectedIndex(0);
+            txt_price.setText("");
+            txt_roomNo.requestFocus();
+            showRooms();
+                       
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(admin_panel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btn_editActionPerformed
+
   
     /**
      * @param args the command line arguments
@@ -612,13 +653,13 @@ public class admin_panel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_delete;
+    private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_save;
     private javax.swing.JButton btn_showRooms;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
