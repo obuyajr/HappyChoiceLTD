@@ -165,6 +165,11 @@ public class admin_panel extends javax.swing.JFrame {
         btn_delete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/trash-solid-24.png"))); // NOI18N
         btn_delete.setText("DELETE");
+        btn_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_deleteActionPerformed(evt);
+            }
+        });
 
         btn_edit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit-alt-regular-24.png"))); // NOI18N
@@ -544,30 +549,43 @@ public class admin_panel extends javax.swing.JFrame {
         String roomType = jcombo_roomType.getSelectedItem().toString();
         String amount = txt_price.getText();
         
+       // Check if the room number is available
+    if (isRoomAvailable(roomNo)) {
         try {
             pst = (PreparedStatement) con.prepareStatement("insert into rooms(room_no,room_type,price) values(?,?,?)");
-            
+
             pst.setString(1, roomNo);
             pst.setString(2, roomType);
             pst.setString(3, amount);
-            
+
             pst.executeUpdate();
             JOptionPane.showMessageDialog(this, "Room added successfully");
-            
-            //clear form after entry
-            
-          // Clear the fields
+
+            // Clear the fields
             txt_roomNo.setText("");
             jcombo_roomType.setSelectedIndex(0);
             txt_price.setText("");
             txt_roomNo.requestFocus();
             showRooms();
-            
-            
         } catch (SQLException ex) {
             Logger.getLogger(admin_panel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+    } else {
+        JOptionPane.showMessageDialog(this, "Room number already exists", "Warning", JOptionPane.WARNING_MESSAGE);
+    }
+}                                       
+
+private boolean isRoomAvailable(String roomNo) {
+    // Query the database to check if the room number is available
+    try {
+        pst = (PreparedStatement) con.prepareStatement("SELECT room_no FROM rooms WHERE room_no = ?");
+        pst.setString(1, roomNo);
+        ResultSet rs = pst.executeQuery();
+        return !rs.next(); // If rs.next() returns true, it means the room number already exists in the database, so it is not available
+    } catch (SQLException ex) {
+        Logger.getLogger(admin_panel.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return false;
     }//GEN-LAST:event_btn_saveActionPerformed
 
     private void btn_showRoomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showRoomsActionPerformed
@@ -588,39 +606,67 @@ public class admin_panel extends javax.swing.JFrame {
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel df = (DefaultTableModel)rooms_display.getModel();
-        int selectIndex = rooms_display.getSelectedRow();
-        
+//        DefaultTableModel df = (DefaultTableModel)rooms_display.getModel();
+//        int selectedIndex = rooms_display.getSelectedRows();
+//                
+//        
+//        String roomNo = txt_roomNo.getText();
+//        String roomType = jcombo_roomType.getSelectedItem().toString();
+//        String amount = txt_price.getText();
+//        
+//        try {
+//            pst = (PreparedStatement) con.prepareStatement("update rooms set room_no=?, room_type = ? where price = ?");
+//            
+//            pst.setString(1, roomNo);
+//            pst.setString(2, roomType);
+//            pst.setString(3, amount);
+//            
+//            pst.executeUpdate();
+//            JOptionPane.showMessageDialog(this, "Room Edited successfully");
+//            
+//            //clear form after entry
+//            
+//           // Clear the fields
+//            txt_roomNo.setText("");
+//            jcombo_roomType.setSelectedIndex(0);
+//            txt_price.setText("");
+//            txt_roomNo.requestFocus();
+//            showRooms();
+//                       
+//            
+//        } catch (SQLException ex) {
+//            Logger.getLogger(admin_panel.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+    }//GEN-LAST:event_btn_editActionPerformed
+
+    private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
+        // TODO add your handling code here:
         String roomNo = txt_roomNo.getText();
-        String roomType = jcombo_roomType.getSelectedItem().toString();
-        String amount = txt_price.getText();
+        
         
         try {
-            pst = (PreparedStatement) con.prepareStatement("update rooms set room_no=?, room_type = ? where price = ?");
+            pst = (PreparedStatement) con.prepareStatement("delete from rooms where room_no = ?");
+            
             
             pst.setString(1, roomNo);
             
-            pst.setString(2, roomType);
-            pst.setString(3, amount);
-            
             pst.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Room Edited successfully");
+            JOptionPane.showMessageDialog(this, "Room Deleted successfully");
             
             //clear form after entry
             
-           // Clear the fields
-            txt_roomNo.setText("");
-            jcombo_roomType.setSelectedIndex(0);
+            jcombo_roomType.setSelectedIndex(-1);
             txt_price.setText("");
-            txt_roomNo.requestFocus();
+            
             showRooms();
-                       
+            btn_save.setEnabled(true);
+            
             
         } catch (SQLException ex) {
             Logger.getLogger(admin_panel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }//GEN-LAST:event_btn_editActionPerformed
+    }//GEN-LAST:event_btn_deleteActionPerformed
 
   
     /**
