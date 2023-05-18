@@ -28,6 +28,8 @@ public class admin_panel extends javax.swing.JFrame {
     public admin_panel() {
         initComponents();
         connect();
+        showRooms();
+       
     }
     //declarations
     Connection con;
@@ -50,6 +52,40 @@ public class admin_panel extends javax.swing.JFrame {
             }
     
     }
+     
+     private void showRooms(){
+         int c;
+         
+         try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/happy-choice","root","");
+            pst = con.prepareStatement("select * from rooms");
+            ResultSet rs = pst.executeQuery();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            
+            c = rsmd.getColumnCount();
+            
+            DefaultTableModel df = (DefaultTableModel)rooms_display.getModel();
+            df.setRowCount(0);
+            
+            while(rs.next()){
+                Vector v2 = new Vector();
+                
+                for (int a = 1;a<=c; a++){
+                    v2.add(rs.getString("room_no"));
+                    v2.add(rs.getString("room_type"));
+                    v2.add(rs.getString("price"));
+                }
+                df.addRow(v2);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(admin_panel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            catch(SQLException ex){
+                Logger.getLogger(admin_panel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    
+     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -67,13 +103,11 @@ public class admin_panel extends javax.swing.JFrame {
         btn_save = new javax.swing.JButton();
         btn_delete = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        rooms_display = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         btn_showRooms = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        rooms_display = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -162,7 +196,7 @@ public class admin_panel extends javax.swing.JFrame {
                             .addComponent(jcombo_roomType, 0, 115, Short.MAX_VALUE)
                             .addComponent(txt_price)
                             .addComponent(txt_roomNo))))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,35 +224,8 @@ public class admin_panel extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        rooms_display.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        rooms_display.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ROOM NO", "ROOM TYPE", "PRICE"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                true, true, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        rooms_display.setRowHeight(35);
-        jScrollPane1.setViewportView(rooms_display);
-
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btn_showRooms.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_showRooms.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/desktop-regular-24.png"))); // NOI18N
@@ -233,10 +240,6 @@ public class admin_panel extends javax.swing.JFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close.png"))); // NOI18N
         jButton1.setText("CLOSE");
 
-        jButton7.setText("jButton7");
-
-        jButton8.setText("jButton8");
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -247,15 +250,8 @@ public class admin_panel extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(71, 71, 71)
-                                .addComponent(btn_showRooms))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jButton8)
-                                .addGap(28, 28, 28)
-                                .addComponent(jButton7)))
+                        .addGap(71, 71, 71)
+                        .addComponent(btn_showRooms)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -264,14 +260,36 @@ public class admin_panel extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(btn_showRooms)
-                .addGap(44, 44, 44)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
+
+        rooms_display.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Room no.", "Room type", "Price"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        rooms_display.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rooms_displayMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(rooms_display);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -283,20 +301,22 @@ public class admin_panel extends javax.swing.JFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(14, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(5, 5, 5))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(5, 5, 5))))
         );
 
         jTabbedPane1.addTab("ADD ROOMS", jPanel1);
@@ -347,7 +367,7 @@ public class admin_panel extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                         .addComponent(jButton3)))
                 .addContainerGap())
             .addGroup(jPanel6Layout.createSequentialGroup()
@@ -468,7 +488,7 @@ public class admin_panel extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(196, 196, 196)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(473, Short.MAX_VALUE))
+                .addContainerGap(478, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -528,6 +548,8 @@ public class admin_panel extends javax.swing.JFrame {
             txt_roomNo.setText("");
             jcombo_roomType.setSelectedIndex(0);
             txt_price.setText("");
+            txt_roomNo.requestFocus();
+            showRooms();
             
             
         } catch (SQLException ex) {
@@ -538,40 +560,21 @@ public class admin_panel extends javax.swing.JFrame {
 
     private void btn_showRoomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showRoomsActionPerformed
         // TODO add your handling code here:
+       
+        
     }//GEN-LAST:event_btn_showRoomsActionPerformed
 
-     public void load_room(){
-        int c;
-        try {
-            pst = (PreparedStatement) con.prepareStatement("select * from rooms");
-            ResultSet rs = pst.executeQuery();
-            
-            ResultSetMetaData rsd = rs.getMetaData();
-            c = rsd.getColumnCount();
-            
-            d = (DefaultTableModel)jTable1.getModel();
-            d.setRowCount(0);
-            
-            while(rs.next()){
-                Vector v2 = new Vector();
-                
-                for(int i =1; i<=c; i++){
-                    v2.add(rs.getString("room_id"));
-                    v2.add(rs.getString("room_type"));
-                    v2.add(rs.getString("bed_type"));
-                    v2.add(rs.getString("amount"));
-                }
-                
-                d.addRow(v2);
-            }
-            
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(rooms.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    
-    }
+    private void rooms_displayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rooms_displayMouseClicked
+        // TODO add your handling code here:
+         DefaultTableModel df = (DefaultTableModel)rooms_display.getModel();
+         int selectIndex = rooms_display.getSelectedRow();
+         
+         txt_roomNo.setText(df.getValueAt(selectIndex,0).toString());
+         jcombo_roomType.setSelectedItem(df.getValueAt(selectIndex,1).toString());
+         txt_price.setText(df.getValueAt(selectIndex,2).toString());
+    }//GEN-LAST:event_rooms_displayMouseClicked
+
+  
     /**
      * @param args the command line arguments
      */
@@ -617,8 +620,6 @@ public class admin_panel extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -635,8 +636,8 @@ public class admin_panel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
