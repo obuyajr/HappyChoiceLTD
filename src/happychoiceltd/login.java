@@ -282,9 +282,7 @@ public class login extends javax.swing.JFrame {
                 }
             }
             
-            stmt.setString(1, txtUname.getText());
-            stmt.setString(2, txtpassword.getText());
-            ResultSet result = stmt.executeQuery();
+            
         
         
     }//GEN-LAST:event_btn_loginActionPerformed
