@@ -286,7 +286,21 @@ public class login extends javax.swing.JFrame {
                     rs = pst.executeQuery();
                     
                     if(rs.next()){
-                        
+                        String s1 = rs.getString("user_type");
+                        String s2 = rs.getString("username");
+                        if(utype.equalsIgnoreCase("ADMIN")&& s1.equalsIgnoreCase("ADMIN")){
+                            admin_panel ap = new admin_panel();
+                            ap.setVisible(true);
+                            setVisible(false);
+                        }
+                        if(utype.equalsIgnoreCase("RECEPTIONIST")&& s1.equalsIgnoreCase("RECEPTIONIST")){
+                            book_room br = new book_room();
+                            br.setVisible(true);
+                            setVisible(false);
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "SOME FIELDS  EMPTY", "ERROR!!",1 );
+                       
                     }
                     
                 }catch(Exception ex){
