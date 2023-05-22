@@ -874,39 +874,8 @@ private boolean isRoomAvailable(String roomNo) {
     }//GEN-LAST:event_rooms_displayMouseClicked
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
-        // TODO add your handling code here:
-//        DefaultTableModel df = (DefaultTableModel)rooms_display.getModel();
-//        int selectedIndex = rooms_display.getSelectedRows();
-//                
-//        
-//        String roomNo = txt_roomNo.getText();
-//        String roomType = jcombo_roomType.getSelectedItem().toString();
-//        String amount = txt_price.getText();
-//        
-//        try {
-//            pst = (PreparedStatement) con.prepareStatement("update rooms set room_no=?, room_type = ? where price = ?");
-//            
-//            pst.setString(1, roomNo);
-//            pst.setString(2, roomType);
-//            pst.setString(3, amount);
-//            
-//            pst.executeUpdate();
-//            JOptionPane.showMessageDialog(this, "Room Edited successfully");
-//            
-//            //clear form after entry
-//            
-//           // Clear the fields
-//            txt_roomNo.setText("");
-//            jcombo_roomType.setSelectedIndex(0);
-//            txt_price.setText("");
-//            txt_roomNo.requestFocus();
-//            showRooms();
-//                       
-//            
-//        } catch (SQLException ex) {
-//            Logger.getLogger(admin_panel.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
+         //TODO add your handling code here:
+        
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
