@@ -292,7 +292,10 @@ public class login extends javax.swing.JFrame {
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
                 String loggedInUserType = rs.getString("user_type");
-   
+                if (session_login.isUserLoggedIn(uname)) {
+                System.out.println("User is already logged in!");
+                  return;
+        }
         
                 if (loggedInUserType.equals("ADMIN")) {
                     JOptionPane.showMessageDialog(rootPane, "WELCOME  " +  uname);

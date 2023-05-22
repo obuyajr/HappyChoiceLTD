@@ -34,6 +34,7 @@ public class admin_panel extends javax.swing.JFrame {
         showUsers();
        
     }
+    
     //declarations
     Connection con;
     PreparedStatement pst;
@@ -161,8 +162,7 @@ public class admin_panel extends javax.swing.JFrame {
         btn_delete = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        btn_showRooms = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btn_cloz = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         rooms_display = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -181,7 +181,7 @@ public class admin_panel extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jtable_user = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        btn_close = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -195,6 +195,9 @@ public class admin_panel extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jPanel10 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        btn_logut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -307,41 +310,29 @@ public class admin_panel extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btn_showRooms.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btn_showRooms.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/desktop-regular-24.png"))); // NOI18N
-        btn_showRooms.setText("SHOW ROOMS");
-        btn_showRooms.addActionListener(new java.awt.event.ActionListener() {
+        btn_cloz.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_cloz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close.png"))); // NOI18N
+        btn_cloz.setText("CLOSE");
+        btn_cloz.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_showRoomsActionPerformed(evt);
+                btn_clozActionPerformed(evt);
             }
         });
-
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close.png"))); // NOI18N
-        jButton1.setText("CLOSE");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(btn_showRooms)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_cloz)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(btn_showRooms)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addContainerGap(173, Short.MAX_VALUE)
+                .addComponent(btn_cloz)
                 .addContainerGap())
         );
 
@@ -553,8 +544,13 @@ public class admin_panel extends javax.swing.JFrame {
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close.png"))); // NOI18N
-        jButton4.setText("CLOSE");
+        btn_close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close.png"))); // NOI18N
+        btn_close.setText("CLOSE");
+        btn_close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_closeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -562,14 +558,14 @@ public class admin_panel extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(btn_close)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(93, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(btn_close)
                 .addContainerGap())
         );
 
@@ -750,6 +746,53 @@ public class admin_panel extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("REPORTS", jPanel3);
 
+        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
+
+        btn_logut.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_logut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/log-out-regular-24.png"))); // NOI18N
+        btn_logut.setText("LOG-OUT");
+        btn_logut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_logutActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(btn_logut)
+                .addContainerGap(616, Short.MAX_VALUE))
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(btn_logut)
+                .addContainerGap(235, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(120, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("APPLICATION", jPanel10);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -772,6 +815,7 @@ public class admin_panel extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
@@ -818,12 +862,6 @@ private boolean isRoomAvailable(String roomNo) {
     }
     return false;
     }//GEN-LAST:event_btn_saveActionPerformed
-
-    private void btn_showRoomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showRoomsActionPerformed
-        // TODO add your handling code here:
-       
-        
-    }//GEN-LAST:event_btn_showRoomsActionPerformed
 
     private void rooms_displayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rooms_displayMouseClicked
         // TODO add your handling code here:
@@ -988,6 +1026,30 @@ private boolean isRoomAvailable(String roomNo) {
         }
     }//GEN-LAST:event_btn_deleteUserActionPerformed
 
+    private void btn_logutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logutActionPerformed
+//         String username = txtUsername.getText();
+//
+//            if (session_login.isUserLoggedIn(username)) {
+//                session_login.logoutUser(username);
+//                System.out.println("Logout successful!");
+//            } else {
+//            System.out.println("User is not logged in!");
+//        }
+           
+    }//GEN-LAST:event_btn_logutActionPerformed
+
+    private void btn_clozActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clozActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new login().setVisible(true);
+    }//GEN-LAST:event_btn_clozActionPerformed
+
+    private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new login().setVisible(true);
+    }//GEN-LAST:event_btn_closeActionPerformed
+
   
     /**
      * @param args the command line arguments
@@ -1026,16 +1088,16 @@ private boolean isRoomAvailable(String roomNo) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addNew;
+    private javax.swing.JButton btn_close;
+    private javax.swing.JButton btn_cloz;
     private javax.swing.JButton btn_delete;
     private javax.swing.JButton btn_deleteUser;
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_editUsers;
+    private javax.swing.JButton btn_logut;
     private javax.swing.JButton btn_save;
-    private javax.swing.JButton btn_showRooms;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1049,9 +1111,11 @@ private boolean isRoomAvailable(String roomNo) {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

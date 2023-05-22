@@ -53,7 +53,8 @@ public class book_room extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         btn_close = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("BOOK ROOM");
         setBackground(new java.awt.Color(102, 102, 102));
         setResizable(false);
 
@@ -223,6 +224,11 @@ public class book_room extends javax.swing.JFrame {
         btn_close.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close.png"))); // NOI18N
         btn_close.setText("CLOSE");
+        btn_close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_closeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -278,7 +284,14 @@ public class book_room extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new login().setVisible(true);
+    }//GEN-LAST:event_btn_closeActionPerformed
 
     /**
      * @param args the command line arguments
