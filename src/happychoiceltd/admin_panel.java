@@ -161,6 +161,8 @@ public class admin_panel extends javax.swing.JFrame {
         btn_save = new javax.swing.JButton();
         btn_delete = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jcombo_status = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         btn_cloz = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -253,6 +255,11 @@ public class admin_panel extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel9.setText("STATUS");
+
+        jcombo_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UNBOOKED" }));
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -272,13 +279,15 @@ public class admin_panel extends javax.swing.JFrame {
                                 .addGap(8, 8, 8)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel2)))
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel9)))
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jcombo_roomType, 0, 115, Short.MAX_VALUE)
                             .addComponent(txt_price)
-                            .addComponent(txt_roomNo))))
+                            .addComponent(txt_roomNo)
+                            .addComponent(jcombo_status, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -299,7 +308,11 @@ public class admin_panel extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txt_price, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jcombo_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_delete)
@@ -331,27 +344,27 @@ public class admin_panel extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(173, Short.MAX_VALUE)
+                .addContainerGap(170, Short.MAX_VALUE)
                 .addComponent(btn_cloz)
                 .addContainerGap())
         );
 
         rooms_display.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Room no.", "Room type", "Price"
+                "Room no.", "Room type", "Price", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -420,7 +433,7 @@ public class admin_panel extends javax.swing.JFrame {
             }
         });
 
-        jcombo_usertype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMINISTRATOR", "RECEPTIONIST" }));
+        jcombo_usertype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "RECEPTIONIST" }));
 
         btn_editUsers.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_editUsers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit-alt-regular-24.png"))); // NOI18N
@@ -537,6 +550,11 @@ public class admin_panel extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        jtable_user.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtable_userMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(jtable_user);
@@ -823,15 +841,18 @@ public class admin_panel extends javax.swing.JFrame {
         String roomNo = txt_roomNo.getText();
         String roomType = jcombo_roomType.getSelectedItem().toString();
         String amount = txt_price.getText();
+        String roomStatus = jcombo_status.getSelectedItem().toString();
         
        // Check if the room number is available
     if (isRoomAvailable(roomNo)) {
         try {
-            pst = (PreparedStatement) con.prepareStatement("insert into rooms(room_no,room_type,price) values(?,?,?)");
+            pst = (PreparedStatement) con.prepareStatement("insert into rooms(room_no,room_type,price,Status) values(?,?,?,?)");
 
             pst.setString(1, roomNo);
             pst.setString(2, roomType);
             pst.setString(3, amount);
+            pst.setString(4, roomStatus);
+            
 
             pst.executeUpdate();
             JOptionPane.showMessageDialog(this, "Room added successfully");
@@ -1044,6 +1065,18 @@ private boolean isRoomAvailable(String roomNo) {
         new login().setVisible(true);
     }//GEN-LAST:event_btn_closeActionPerformed
 
+    private void jtable_userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtable_userMouseClicked
+        // TODO add your handling code here:
+         DefaultTableModel df = (DefaultTableModel)jtable_user.getModel();
+         int selectIndex = jtable_user.getSelectedRow();
+         
+         txt_uid.setText(df.getValueAt(selectIndex,0).toString());
+         txt_uname.setText(df.getValueAt(selectIndex,1).toString());
+         txt_password.setText(df.getValueAt(selectIndex,2).toString());
+         jcombo_usertype.setSelectedItem(df.getValueAt(selectIndex,3).toString());
+        
+    }//GEN-LAST:event_jtable_userMouseClicked
+
   
     /**
      * @param args the command line arguments
@@ -1104,6 +1137,7 @@ private boolean isRoomAvailable(String roomNo) {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1123,6 +1157,7 @@ private boolean isRoomAvailable(String roomNo) {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JComboBox<String> jcombo_roomType;
+    private javax.swing.JComboBox<String> jcombo_status;
     private javax.swing.JComboBox<String> jcombo_usertype;
     private javax.swing.JTable jtable_user;
     private javax.swing.JTable rooms_display;

@@ -142,6 +142,7 @@
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel9" alignment="1" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -151,6 +152,7 @@
                                       <Component id="jcombo_roomType" pref="115" max="32767" attributes="0"/>
                                       <Component id="txt_price" max="32767" attributes="0"/>
                                       <Component id="txt_roomNo" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jcombo_status" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -181,7 +183,12 @@
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txt_price" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jcombo_status" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btn_save" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                               <Component id="btn_delete" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -292,6 +299,26 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_editActionPerformed"/>
                   </Events>
                 </Component>
+                <Component class="javax.swing.JLabel" name="jLabel9">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="12" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="STATUS"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jcombo_status">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="1">
+                        <StringItem index="0" value="UNBOOKED"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel5">
@@ -319,7 +346,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace pref="173" max="32767" attributes="0"/>
+                          <EmptySpace pref="170" max="32767" attributes="0"/>
                           <Component id="btn_cloz" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -353,14 +380,20 @@
                 <Component class="javax.swing.JTable" name="rooms_display">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="3" rowCount="4">
+                      <Table columnCount="4" rowCount="4">
                         <Column editable="false" title="Room no." type="java.lang.String"/>
                         <Column editable="false" title="Room type" type="java.lang.String"/>
                         <Column editable="false" title="Price" type="java.lang.Integer"/>
+                        <Column editable="false" title="Status" type="java.lang.String"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -583,7 +616,7 @@
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="2">
-                        <StringItem index="0" value="ADMINISTRATOR"/>
+                        <StringItem index="0" value="ADMIN"/>
                         <StringItem index="1" value="RECEPTIONIST"/>
                       </StringArray>
                     </Property>
@@ -685,6 +718,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtable_userMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
