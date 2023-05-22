@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -18,16 +20,16 @@ import javax.swing.JOptionPane;
  * @author felix
  */
 public class login extends javax.swing.JFrame {
-
-    /**
-     * Creates new form login
-     */
+   
+    
     public login() {
         initComponents();
+        connect();
     }
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
+   // private static final Map<String, UserSession> loggedInUsers = new HashMap<>();
     
     //DB connection method
      public void connect(){
@@ -37,13 +39,15 @@ public class login extends javax.swing.JFrame {
             
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(admin_panel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
             catch(SQLException ex){
-                Logger.getLogger(admin_panel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
             }
     
     }
+     
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -276,38 +280,43 @@ public class login extends javax.swing.JFrame {
             String passWord = txtpassword.getText();
             String utype = jcomboUtype.getSelectedItem().toString();
             
-            if(uname.equals("")||passWord.equals("")|| utype.equals("SELECT")){
-                JOptionPane.showMessageDialog(rootPane, "SOME FIELDS ARE EMPTY", "ERROR!!",1 );
-            }else{
-                try{
-                    pst = con.prepareStatement("SELECT * FROM users where username=? and password=?");
-                    pst.setString(1, uname);
-                    pst.setString(2, passWord);
-                    rs = pst.executeQuery();
-                    
-                    if(rs.next()){
-                        String s1 = rs.getString("user_type");
-                        String s2 = rs.getString("username");
-                        if(utype.equalsIgnoreCase("ADMIN")&& s1.equalsIgnoreCase("ADMIN")){
-                            admin_panel ap = new admin_panel();
-                            ap.setVisible(true);
-                            setVisible(false);
-                        }
-                        if(utype.equalsIgnoreCase("RECEPTIONIST")&& s1.equalsIgnoreCase("RECEPTIONIST")){
-                            book_room br = new book_room();
-                            br.setVisible(true);
-                            setVisible(false);
-                        }
-                    }else{
-                        JOptionPane.showMessageDialog(rootPane, "SOME FIELDS  EMPTY", "ERROR!!",1 );
-                       
-                    }
-                    
-                }catch(Exception ex){
-                    
-                }
-            }
             
+             // Connect to the database
+        try {
+            String query = "SELECT * FROM user WHERE username = ? AND password = ? AND user_type = ?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, uname);
+            pst.setString(2, passWord);
+            pst.setString(3, utype);
+
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                String loggedInUserType = rs.getString("user_type");
+   
+        
+                if (loggedInUserType.equals("ADMIN")) {
+                    JOptionPane.showMessageDialog(rootPane, "WELCOME  " +  uname);
+                    new admin_panel().setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "WELCOME  " + uname);
+                    new book_room().setVisible(true);
+                    this.dispose();
+                }
+
+            } else {
+               JOptionPane.showMessageDialog(rootPane, "WRONG CREDENTIALS  ");
+               // Clear the fields
+                txtUname.setText("");
+                jcomboUtype.setSelectedIndex(0);
+                txtpassword.setText("");
+                txtUname.requestFocus();
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Database connection error: " + e.getMessage());
+        }
+
             
         
         
