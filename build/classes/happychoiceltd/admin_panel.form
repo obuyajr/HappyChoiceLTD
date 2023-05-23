@@ -83,9 +83,9 @@
                           <Component id="jPanel4" max="32767" attributes="0"/>
                           <Component id="jPanel5" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" pref="440" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane3" min="-2" pref="584" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -310,8 +310,9 @@
                 <Component class="javax.swing.JComboBox" name="jcombo_status">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="1">
+                      <StringArray count="2">
                         <StringItem index="0" value="UNBOOKED"/>
+                        <StringItem index="1" value=" "/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -1089,7 +1090,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Component id="btn_logut" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="616" max="32767" attributes="0"/>
+                          <EmptySpace pref="760" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

@@ -96,6 +96,7 @@ public class admin_panel extends javax.swing.JFrame {
                     v2.add(rs.getString("room_no"));
                     v2.add(rs.getString("room_type"));
                     v2.add(rs.getString("price"));
+                    v2.add(rs.getString("Status"));
                 }
                 df.addRow(v2);
             }
@@ -258,7 +259,7 @@ public class admin_panel extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("STATUS");
 
-        jcombo_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UNBOOKED" }));
+        jcombo_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UNBOOKED", " " }));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -392,7 +393,7 @@ public class admin_panel extends javax.swing.JFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -782,7 +783,7 @@ public class admin_panel extends javax.swing.JFrame {
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(btn_logut)
-                .addContainerGap(616, Short.MAX_VALUE))
+                .addContainerGap(760, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -862,6 +863,7 @@ public class admin_panel extends javax.swing.JFrame {
             jcombo_roomType.setSelectedIndex(0);
             txt_price.setText("");
             txt_roomNo.requestFocus();
+            jcombo_status.setSelectedIndex(0);
             showRooms();
         } catch (SQLException ex) {
             Logger.getLogger(admin_panel.class.getName()).log(Level.SEVERE, null, ex);
@@ -892,6 +894,8 @@ private boolean isRoomAvailable(String roomNo) {
          txt_roomNo.setText(df.getValueAt(selectIndex,0).toString());
          jcombo_roomType.setSelectedItem(df.getValueAt(selectIndex,1).toString());
          txt_price.setText(df.getValueAt(selectIndex,2).toString());
+         jcombo_status.setSelectedItem(df.getValueAt(selectIndex,3).toString());
+         btn_save.setEnabled(false);
     }//GEN-LAST:event_rooms_displayMouseClicked
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
@@ -900,15 +904,17 @@ private boolean isRoomAvailable(String roomNo) {
     int selectedIndex = rooms_display.getSelectedRow();
     
     try {
-        pst = con.prepareStatement("update rooms set room_no=?, room_type=?, price=?");
+        pst = con.prepareStatement("update rooms set room_no=?, room_type=?, price=?,Status = ?");
 
         String roomNo = txt_roomNo.getText();
         String roomType = jcombo_roomType.getSelectedItem().toString();
         String amount = txt_price.getText();
+        String status = jcombo_status.getSelectedItem().toString();
 
         pst.setString(1, roomNo);
         pst.setString(2, roomType);
         pst.setString(3, amount);
+        pst.setString(4, status);
 
         pst.executeUpdate();
         JOptionPane.showMessageDialog(this, "Room Edited successfully");
