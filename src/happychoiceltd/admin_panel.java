@@ -1080,6 +1080,7 @@ private boolean isRoomAvailable(String roomNo) {
          txt_uname.setText(df.getValueAt(selectIndex,1).toString());
          txt_password.setText(df.getValueAt(selectIndex,2).toString());
          jcombo_usertype.setSelectedItem(df.getValueAt(selectIndex,3).toString());
+         btn_addNew.setEnabled(false);
         
     }//GEN-LAST:event_jtable_userMouseClicked
 

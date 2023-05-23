@@ -68,6 +68,11 @@ public class book_room extends javax.swing.JFrame {
         jLabel3.setText("ROOM TYPE");
 
         jcombo_roomType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        jcombo_roomType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcombo_roomTypeActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("PRICE");
 
@@ -292,6 +297,11 @@ public class book_room extends javax.swing.JFrame {
         this.dispose();
         new login().setVisible(true);
     }//GEN-LAST:event_btn_closeActionPerformed
+
+    private void jcombo_roomTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcombo_roomTypeActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jcombo_roomTypeActionPerformed
 
     /**
      * @param args the command line arguments
