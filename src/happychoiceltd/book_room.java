@@ -25,6 +25,7 @@ public class book_room extends javax.swing.JFrame {
     public book_room() {
         initComponents();
         connect();
+        loadToJcombo();
     }
     
     Connection con;
@@ -46,6 +47,26 @@ public class book_room extends javax.swing.JFrame {
             }
     
     }
+     public void loadToJcombo(){
+         try {
+
+            // Retrieve room types from the database
+            PreparedStatement pst = con.prepareStatement("SELECT DISTINCT room_type FROM rooms");
+            ResultSet rs = pst.executeQuery();
+            
+            while (rs.next()) {
+                jcombo_roomType.setSelectedIndex(0);
+                jcombo_roomType.addItem(rs.getString("room_type"));
+                
+            }
+
+            // Close the result set and statement
+            rs.close();
+            pst.close();
+        } catch (SQLException e) {
+            
+        }
+     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -334,27 +355,7 @@ public class book_room extends javax.swing.JFrame {
 
     private void jcombo_roomTypeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcombo_roomTypeMouseClicked
         // TODO add your handling code here:
-        try {
-
-            // Retrieve room types from the database
-            PreparedStatement pst = con.prepareStatement("SELECT DISTINCT room_type FROM rooms");
-            ResultSet rs = pst.executeQuery();
-            // Populate the combo box model
-            DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
-            while (rs.next()) {
-                String roomType = rs.getString("room_type");
-                comboBoxModel.addElement(roomType);
-            }
-
-            // Set the combo box model
-            jcombo_roomType.setModel(comboBoxModel);
-
-            // Close the result set and statement
-            rs.close();
-            pst.close();
-        } catch (SQLException e) {
-            
-        }
+        
     }//GEN-LAST:event_jcombo_roomTypeMouseClicked
 
     /**

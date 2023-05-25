@@ -911,6 +911,7 @@ private boolean isRoomAvailable(String roomNo) {
          txt_price.setText(df.getValueAt(selectIndex,2).toString());
          jcombo_status.setSelectedItem(df.getValueAt(selectIndex,3).toString());
          btn_save.setEnabled(false);
+         txt_roomNo.setEditable(false);
     }//GEN-LAST:event_rooms_displayMouseClicked
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
@@ -1096,7 +1097,7 @@ private boolean isRoomAvailable(String roomNo) {
          txt_password.setText(df.getValueAt(selectIndex,2).toString());
          jcombo_usertype.setSelectedItem(df.getValueAt(selectIndex,3).toString());
          btn_addNew.setEnabled(false);
-         txt_roomNo.setEditable(false);
+         txt_uid.setEditable(false);
         
     }//GEN-LAST:event_jtable_userMouseClicked
 

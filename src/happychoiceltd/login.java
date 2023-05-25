@@ -196,8 +196,10 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtpasswordActionPerformed
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
-           
+            
+            
             String uname = txtUname.getText();
+            
             String passWord = txtpassword.getText();
             String utype = jcomboUtype.getSelectedItem().toString();
             
@@ -282,7 +284,9 @@ public class login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 new login().setVisible(true);
+                
             }
         });
     }
