@@ -28,6 +28,7 @@ public class book_room extends javax.swing.JFrame {
         initComponents();
         connect();
         loadToJcombo();
+       calculateTotal();
     }
     
     Connection con;
@@ -122,15 +123,21 @@ public class book_room extends javax.swing.JFrame {
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     }
-                }else{
-                    txt_price.setText("");
                 }
             }
         });
+              
+                //
     } catch (SQLException e) {
         e.printStackTrace();
     }
-}
+    }
+    //calculate total
+    public void calculateTotal(){
+
+    }
+
+   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -149,15 +156,14 @@ public class book_room extends javax.swing.JFrame {
         txt_phone = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txt_days = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        txt_total = new javax.swing.JTextField();
         btn_bookRoom = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        txt_total = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btn_print = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -197,14 +203,19 @@ public class book_room extends javax.swing.JFrame {
 
         jLabel7.setText("DAYS");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel8.setText("TOTAL");
-
-        txt_total.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_total.setForeground(new java.awt.Color(0, 0, 204));
+        txt_days.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_daysActionPerformed(evt);
+            }
+        });
 
         btn_bookRoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/book-open-regular-24.png"))); // NOI18N
         btn_bookRoom.setText("BOOK ROOM");
+        btn_bookRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_bookRoomActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -213,7 +224,6 @@ public class book_room extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8)
                     .addComponent(jLabel7)
                     .addComponent(jLabel6)
                     .addComponent(jLabel5)
@@ -227,7 +237,6 @@ public class book_room extends javax.swing.JFrame {
                     .addComponent(jcombo_roomType, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_price, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_custName, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_total, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txt_days, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txt_phone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)))
@@ -260,11 +269,7 @@ public class book_room extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txt_days, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txt_total, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                 .addComponent(btn_bookRoom)
                 .addContainerGap())
         );
@@ -279,9 +284,13 @@ public class book_room extends javax.swing.JFrame {
 
         jLabel10.setText("room type");
 
-        jLabel11.setText("total");
-
         jLabel12.setText("phone");
+
+        txt_total.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txt_total.setForeground(new java.awt.Color(0, 0, 204));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setText("TOTAL");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -293,12 +302,14 @@ public class book_room extends javax.swing.JFrame {
                         .addGap(84, 84, 84)
                         .addComponent(jLabel9))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
                             .addComponent(jLabel10)
-                            .addComponent(jLabel12))))
-                .addContainerGap(156, Short.MAX_VALUE))
+                            .addComponent(jLabel12)
+                            .addComponent(txt_total, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,9 +320,11 @@ public class book_room extends javax.swing.JFrame {
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel10)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_total, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -423,6 +436,33 @@ public class book_room extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jcombo_roomTypeMouseClicked
 
+    private void btn_bookRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bookRoomActionPerformed
+        // TODO add your handling code here:
+                 String numOfDaysText = txt_days.getText();
+        String priceText = txt_price.getText();
+        try{
+                
+            if (!numOfDaysText.isEmpty() && !priceText.isEmpty()) {
+                int numOfDays = Integer.parseInt(numOfDaysText);
+                double price = Double.parseDouble(priceText);
+                double amount = numOfDays * price;
+                txt_total.setText(String.valueOf(amount));
+            } else {
+                txt_total.setText("");
+            }
+                
+            
+       
+        } catch (Exception e) {
+        e.printStackTrace();
+    }
+        
+    }//GEN-LAST:event_btn_bookRoomActionPerformed
+
+    private void txt_daysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_daysActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_daysActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -464,7 +504,6 @@ public class book_room extends javax.swing.JFrame {
     private javax.swing.JButton btn_print;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
