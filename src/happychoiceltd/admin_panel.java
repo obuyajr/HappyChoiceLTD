@@ -1114,13 +1114,15 @@ private boolean isRoomAvailable(String roomNo) {
     private void btn_clear1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clear1ActionPerformed
         // TODO add your handling code here:
         // Clear the fields
-            txt_uid.setText("");
+           // txt_uid.setText("");
             jcombo_usertype.setSelectedIndex(0);
             txt_uname.setText("");
             txt_password.setText("");
             txt_uid.requestFocus();
            // jcombo_status.setSelectedIndex(0);
              btn_addNew.setEnabled(true);
+             
+             
     }//GEN-LAST:event_btn_clear1ActionPerformed
 
   
