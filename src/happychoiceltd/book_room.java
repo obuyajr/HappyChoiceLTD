@@ -4,6 +4,8 @@
  */
 package happychoiceltd;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -47,26 +49,89 @@ public class book_room extends javax.swing.JFrame {
             }
     
     }
-     public void loadToJcombo(){
-         try {
+    public void loadToJcombo() {
+    try {
+        // Retrieve room types from the database
+        PreparedStatement pst = con.prepareStatement("SELECT DISTINCT room_type FROM rooms");
+        ResultSet rs = pst.executeQuery();
 
-            // Retrieve room types from the database
-            PreparedStatement pst = con.prepareStatement("SELECT DISTINCT room_type FROM rooms");
-            ResultSet rs = pst.executeQuery();
-            
-            while (rs.next()) {
-                jcombo_roomType.setSelectedIndex(0);
-                jcombo_roomType.addItem(rs.getString("room_type"));
-                
-            }
-
-            // Close the result set and statement
-            rs.close();
-            pst.close();
-        } catch (SQLException e) {
-            
+        while (rs.next()) {
+            jcombo_roomType.addItem(rs.getString("room_type"));
         }
-     }
+
+        // Close the result set and statement
+        rs.close();
+        pst.close();
+
+        // Add selection listener to the room type combo box
+        jcombo_roomType.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String selectedRoomType = (String) jcombo_roomType.getSelectedItem();
+
+                if (selectedRoomType != null) {
+                    // Retrieve the rooms based on the selected room type from the database
+                    try {
+                        PreparedStatement pst2 = con.prepareStatement("SELECT room_no FROM rooms WHERE room_type = ? AND Status <> 'BOOKED'");
+                        pst2.setString(1, selectedRoomType);
+                        ResultSet rs2 = pst2.executeQuery();
+
+                        // Clear existing items in the second combo box
+                        jcombo_availableRooms.removeAllItems();
+
+                        while (rs2.next()) {
+                            jcombo_availableRooms.addItem(rs2.getString("room_no"));
+                        }
+
+                        // Close the result set and statement
+                        rs2.close();
+                        pst2.close();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
+        
+        //
+                jcombo_availableRooms.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String selectedRoom = (String) jcombo_availableRooms.getSelectedItem();
+
+                if (selectedRoom != null) {
+                    // Retrieve the price based on the selected room  from the database
+                    try {
+                        PreparedStatement pst3 = con.prepareStatement("SELECT price FROM rooms WHERE room_no = ? ");
+                        pst3.setString(1, selectedRoom);
+                        ResultSet rs2 = pst3.executeQuery();
+
+                        // Clear existing items in the second combo box
+                        txt_price.setText("");
+
+
+                        StringBuilder sb = new StringBuilder();
+                        while (rs2.next()) {
+                        sb.append(rs2.getString("price"));
+                        sb.append(" "); // Add a space or any separator between the values
+                        }
+                        txt_price.setText(sb.toString());
+
+
+                        // Close the result set and statement
+                        rs2.close();
+                        pst3.close();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }else{
+                    txt_price.setText("");
+                }
+            }
+        });
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
