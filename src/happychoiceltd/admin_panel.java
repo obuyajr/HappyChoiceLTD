@@ -164,6 +164,7 @@ public class admin_panel extends javax.swing.JFrame {
         btn_edit = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jcombo_status = new javax.swing.JComboBox<>();
+        btn_clear = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btn_cloz = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -181,6 +182,7 @@ public class admin_panel extends javax.swing.JFrame {
         btn_deleteUser = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         txt_uid = new javax.swing.JTextField();
+        btn_clear1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtable_user = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
@@ -261,6 +263,15 @@ public class admin_panel extends javax.swing.JFrame {
 
         jcombo_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UNBOOKED", " " }));
 
+        btn_clear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_clear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eraser-solid-24.png"))); // NOI18N
+        btn_clear.setText("CLEAR");
+        btn_clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -273,7 +284,9 @@ public class admin_panel extends javax.swing.JFrame {
                         .addGap(17, 17, 17)
                         .addComponent(btn_edit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_delete))
+                        .addComponent(btn_delete)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_clear))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -289,7 +302,7 @@ public class admin_panel extends javax.swing.JFrame {
                             .addComponent(txt_price)
                             .addComponent(txt_roomNo)
                             .addComponent(jcombo_status, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,7 +330,8 @@ public class admin_panel extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_delete)
-                    .addComponent(btn_edit))
+                    .addComponent(btn_edit)
+                    .addComponent(btn_clear))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -469,6 +483,15 @@ public class admin_panel extends javax.swing.JFrame {
             }
         });
 
+        btn_clear1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_clear1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eraser-solid-24.png"))); // NOI18N
+        btn_clear1.setText("CLEAR");
+        btn_clear1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clear1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -482,7 +505,7 @@ public class admin_panel extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jcombo_usertype, 0, 221, Short.MAX_VALUE)
+                    .addComponent(jcombo_usertype, 0, 226, Short.MAX_VALUE)
                     .addComponent(txt_password)
                     .addComponent(txt_uname)
                     .addComponent(txt_uid))
@@ -490,7 +513,8 @@ public class admin_panel extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_editUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_deleteUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_addNew, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_addNew, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                    .addComponent(btn_clear1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(38, 38, 38))
         );
         jPanel6Layout.setVerticalGroup(
@@ -519,8 +543,10 @@ public class admin_panel extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btn_editUsers)
                         .addGap(18, 18, 18)
-                        .addComponent(btn_deleteUser)))
-                .addContainerGap(134, Short.MAX_VALUE))
+                        .addComponent(btn_deleteUser)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_clear1)))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         jtable_user.setModel(new javax.swing.table.DefaultTableModel(
@@ -1073,6 +1099,30 @@ private boolean isRoomAvailable(String roomNo) {
         
     }//GEN-LAST:event_jtable_userMouseClicked
 
+    private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
+        // TODO add your handling code here:
+         // Clear the fields
+            txt_roomNo.setText("");
+            jcombo_roomType.setSelectedIndex(0);
+            txt_price.setText("");
+            txt_roomNo.requestFocus();
+            jcombo_status.setSelectedIndex(0);
+             btn_save.setEnabled(true);
+            
+    }//GEN-LAST:event_btn_clearActionPerformed
+
+    private void btn_clear1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clear1ActionPerformed
+        // TODO add your handling code here:
+        // Clear the fields
+            txt_uid.setText("");
+            jcombo_usertype.setSelectedIndex(0);
+            txt_uname.setText("");
+            txt_password.setText("");
+            txt_uid.requestFocus();
+           // jcombo_status.setSelectedIndex(0);
+             btn_addNew.setEnabled(true);
+    }//GEN-LAST:event_btn_clear1ActionPerformed
+
   
     /**
      * @param args the command line arguments
@@ -1111,6 +1161,8 @@ private boolean isRoomAvailable(String roomNo) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addNew;
+    private javax.swing.JButton btn_clear;
+    private javax.swing.JButton btn_clear1;
     private javax.swing.JButton btn_close;
     private javax.swing.JButton btn_cloz;
     private javax.swing.JButton btn_delete;
