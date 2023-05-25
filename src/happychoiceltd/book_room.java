@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -456,9 +457,51 @@ public class book_room extends javax.swing.JFrame {
         } catch (Exception e) {
         e.printStackTrace();
     }
+        // Assuming you have obtained the required input values from the user
+    String roomType = (String) jcombo_roomType.getSelectedItem();
+    String roomNumber = (String) jcombo_availableRooms.getSelectedItem();
+    String prices = txt_price.getText();
+    String customerName = txt_custName.getText();
+    String phoneNumber = txt_phone.getText();
+    String noOfDaysText = txt_days.getText();
+    String totalAmountText = txt_total.getText();
+    
+    // Display the JOptionPane with Yes/No option
+    int option = JOptionPane.showConfirmDialog(null, "Confirm booking?",
+            "Confirmation", JOptionPane.YES_NO_OPTION);
+    if (option == JOptionPane.YES_OPTION) {
+        try {
+            // Convert price, numOfDays, and totalAmount to appropriate data types
+            double price = Double.parseDouble(prices);
+            int numOfDays = Integer.parseInt(noOfDaysText);
+            double totalAmount = Double.parseDouble(totalAmountText);
+
+            // Prepare the SQL statement
+            PreparedStatement pst = con.prepareStatement("INSERT INTO bookings (room_type, room_no, price, custName, phoneNumber, days, total) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            pst.setString(1, roomType);
+            pst.setString(2, roomNumber);
+            pst.setDouble(3, price);
+            pst.setString(4, customerName);
+            pst.setString(5, phoneNumber);
+            pst.setInt(6, numOfDays);
+            pst.setDouble(7, totalAmount);
+
+            // Execute the statement
+            pst.executeUpdate();
+
+            // Close the statement
+            pst.close();
+
+    // Display success message or perform any additional actions
+    
+} catch (SQLException | NumberFormatException ex) {
+    // Handle any errors that may occur during the insertion
+    ex.printStackTrace();
+}
+
         
     }//GEN-LAST:event_btn_bookRoomActionPerformed
-
+  }
     private void txt_daysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_daysActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_daysActionPerformed
