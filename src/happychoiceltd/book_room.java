@@ -11,6 +11,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -31,6 +36,7 @@ public class book_room extends javax.swing.JFrame {
         connect();
         loadToJcombo();
        calculateTotal();
+      
        txt_price.setEditable(false);
        txt_total.setEditable(false);
     }
@@ -54,6 +60,30 @@ public class book_room extends javax.swing.JFrame {
             }
     
     }
+    public void startCountdownTimer(int numOfDays, String roomNumber) {
+            // Calculate the expiration time based on the current date and the number of days
+            long expirationTimeMillis = System.currentTimeMillis() + (numOfDays * 1 * 1000);
+
+            // Create a Runnable to update the room status to "UNBOOKED" when the countdown expires
+            Runnable updateStatusTask = () -> {
+                try {
+                    PreparedStatement pstUpdateStatus = con.prepareStatement("UPDATE rooms SET Status = 'UNBOOKED' WHERE room_no = ?");
+                    pstUpdateStatus.setString(1, roomNumber);
+                    pstUpdateStatus.executeUpdate();
+                    pstUpdateStatus.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            };
+
+            // Schedule the Runnable to run at the expiration time
+            ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+            long delayMillis = expirationTimeMillis - System.currentTimeMillis();
+            executorService.schedule(updateStatusTask, delayMillis, TimeUnit.MILLISECONDS);
+    }
+
+
+
     public void loadToJcombo() {
     try {
         // Retrieve room types from the database
@@ -539,25 +569,7 @@ public class book_room extends javax.swing.JFrame {
                 jcombo_roomType.requestFocus();
                 
                 //
-                 // Schedule task to update room status after the number of days
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    PreparedStatement pstUpdateStatus = con.prepareStatement("UPDATE rooms SET Status = 'UNBOOKED' WHERE room_no = ?");
-                    pstUpdateStatus.setString(1, roomNumber);
-                    pstUpdateStatus.executeUpdate();
-                    pstUpdateStatus.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }, numOfDays * 24 * 60 * 60 * 1000); // Convert days to milliseconds
-    } catch (SQLException | NumberFormatException ex) {
-        // Handle any errors that may occur during the insertion
-        ex.printStackTrace();
-    }
+             
                 //
             } catch (SQLException | NumberFormatException ex) {
                 // Handle any errors that may occur during the insertion
@@ -567,8 +579,7 @@ public class book_room extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "ROOM BOOKING CANCELED");
         }
 
- 
-
+        
     
     }//GEN-LAST:event_btn_bookRoomActionPerformed
 
