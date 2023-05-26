@@ -75,26 +75,25 @@ public class login extends javax.swing.JFrame {
 
         jPanel3.setBackground(java.awt.SystemColor.control);
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel3.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("USERNAME");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("PASSWORD");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("USER TYPE");
 
         jcomboUtype.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jcomboUtype.setForeground(new java.awt.Color(0, 0, 0));
         jcomboUtype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECT", "ADMIN", "RECEPTIONIST" }));
+        jcomboUtype.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcomboUtypeActionPerformed(evt);
+            }
+        });
 
         txtpassword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtpassword.setForeground(new java.awt.Color(0, 0, 0));
         txtpassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtpasswordActionPerformed(evt);
@@ -102,10 +101,8 @@ public class login extends javax.swing.JFrame {
         });
 
         txtUname.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtUname.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Happy Choice GH");
 
         btn_login.setBackground(new java.awt.Color(0, 153, 51));
@@ -253,6 +250,10 @@ public class login extends javax.swing.JFrame {
         //exit system
         System.exit(0);
     }//GEN-LAST:event_btn_exitActionPerformed
+
+    private void jcomboUtypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboUtypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcomboUtypeActionPerformed
 
     /**
      * @param args the command line arguments

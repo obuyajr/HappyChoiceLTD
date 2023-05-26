@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -30,6 +31,8 @@ public class book_room extends javax.swing.JFrame {
         connect();
         loadToJcombo();
        calculateTotal();
+       txt_price.setEditable(false);
+       txt_total.setEditable(false);
     }
     
     Connection con;
@@ -198,6 +201,9 @@ public class book_room extends javax.swing.JFrame {
 
         jLabel4.setText("PRICE");
 
+        txt_price.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txt_price.setForeground(new java.awt.Color(0, 0, 204));
+
         jLabel5.setText("CUSTOMER NAME");
 
         jLabel6.setText("PHONE");
@@ -254,10 +260,10 @@ public class book_room extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jcombo_availableRooms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txt_price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_price, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -270,7 +276,7 @@ public class book_room extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txt_days, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addGap(87, 87, 87)
                 .addComponent(btn_bookRoom)
                 .addContainerGap())
         );
@@ -287,7 +293,7 @@ public class book_room extends javax.swing.JFrame {
 
         jLabel12.setText("phone");
 
-        txt_total.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txt_total.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txt_total.setForeground(new java.awt.Color(0, 0, 204));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -458,50 +464,116 @@ public class book_room extends javax.swing.JFrame {
         e.printStackTrace();
     }
         // Assuming you have obtained the required input values from the user
-    String roomType = (String) jcombo_roomType.getSelectedItem();
-    String roomNumber = (String) jcombo_availableRooms.getSelectedItem();
-    String prices = txt_price.getText();
-    String customerName = txt_custName.getText();
-    String phoneNumber = txt_phone.getText();
-    String noOfDaysText = txt_days.getText();
-    String totalAmountText = txt_total.getText();
+        String roomType = (String) jcombo_roomType.getSelectedItem();
+        String roomNumber = (String) jcombo_availableRooms.getSelectedItem();
+        String prices = txt_price.getText();
+        String customerName = txt_custName.getText();
+        String phoneNumber = txt_phone.getText();
+        String noOfDaysText = txt_days.getText();
+        String totalAmountText = txt_total.getText();
+
+        // Display the JOptionPane with Yes/No option
+        int option = JOptionPane.showConfirmDialog(null, "Confirm booking?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if (option == JOptionPane.YES_OPTION) {
+            try {
+                // Convert price, numOfDays, and totalAmount to appropriate data types
+                double price = Double.parseDouble(prices);
+                int numOfDays = Integer.parseInt(noOfDaysText);
+                double totalAmount = Double.parseDouble(totalAmountText);
+
+                // Update room status to 'BOOKED'
+                try {
+                    PreparedStatement pst1 = con.prepareStatement("UPDATE rooms SET Status = 'BOOKED' WHERE room_no = ?");
+                    pst1.setString(1, roomNumber);
+                    pst1.executeUpdate();
+                    pst1.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+
+                // Insert booking information into the 'bookings' table
+                PreparedStatement pst = con.prepareStatement("INSERT INTO bookings (room_type, room_no, price, custName, phoneNumber, days, total) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                pst.setString(1, roomType);
+                pst.setString(2, roomNumber);
+                pst.setDouble(3, price);
+                pst.setString(4, customerName);
+                pst.setString(5, phoneNumber);
+                pst.setInt(6, numOfDays);
+                pst.setDouble(7, totalAmount);
+
+                pst.executeUpdate();
+                pst.close();
+
+                // Display success message or perform any additional actions
+                JOptionPane.showMessageDialog(rootPane, "Room Booked Successfully");
+
+                // Clear the fields
+                // Clear and repopulate the available rooms combo box
+                jcombo_availableRooms.removeAllItems();
+
+                try {
+                    PreparedStatement pst2 = con.prepareStatement("SELECT room_no FROM rooms WHERE room_type = ? AND Status <> 'BOOKED'");
+                    pst2.setString(1, roomType);
+                    ResultSet rs2 = pst2.executeQuery();
+
+                    while (rs2.next()) {
+                        jcombo_availableRooms.addItem(rs2.getString("room_no"));
+                    }
+
+                    rs2.close();
+                    pst2.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+
+               
+                
+                
+               //jcombo_roomType.removeAllItems();
+            
+                txt_price.setText("");
+                txt_custName.setText("");
+                txt_phone.setText("");
+                txt_days.setText("");
+                txt_total.setText("");
+                jcombo_roomType.requestFocus();
+                
+                //
+                 // Schedule task to update room status after the number of days
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    PreparedStatement pstUpdateStatus = con.prepareStatement("UPDATE rooms SET Status = 'UNBOOKED' WHERE room_no = ?");
+                    pstUpdateStatus.setString(1, roomNumber);
+                    pstUpdateStatus.executeUpdate();
+                    pstUpdateStatus.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }, numOfDays * 24 * 60 * 60 * 1000); // Convert days to milliseconds
+    } catch (SQLException | NumberFormatException ex) {
+        // Handle any errors that may occur during the insertion
+        ex.printStackTrace();
+    }
+                //
+            } catch (SQLException | NumberFormatException ex) {
+                // Handle any errors that may occur during the insertion
+                ex.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "ROOM BOOKING CANCELED");
+        }
+
+ 
+
     
-    // Display the JOptionPane with Yes/No option
-    int option = JOptionPane.showConfirmDialog(null, "Confirm booking?",
-            "Confirmation", JOptionPane.YES_NO_OPTION);
-    if (option == JOptionPane.YES_OPTION) {
-        try {
-            // Convert price, numOfDays, and totalAmount to appropriate data types
-            double price = Double.parseDouble(prices);
-            int numOfDays = Integer.parseInt(noOfDaysText);
-            double totalAmount = Double.parseDouble(totalAmountText);
-
-            // Prepare the SQL statement
-            PreparedStatement pst = con.prepareStatement("INSERT INTO bookings (room_type, room_no, price, custName, phoneNumber, days, total) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            pst.setString(1, roomType);
-            pst.setString(2, roomNumber);
-            pst.setDouble(3, price);
-            pst.setString(4, customerName);
-            pst.setString(5, phoneNumber);
-            pst.setInt(6, numOfDays);
-            pst.setDouble(7, totalAmount);
-
-            // Execute the statement
-            pst.executeUpdate();
-
-            // Close the statement
-            pst.close();
-
-    // Display success message or perform any additional actions
-    
-} catch (SQLException | NumberFormatException ex) {
-    // Handle any errors that may occur during the insertion
-    ex.printStackTrace();
-}
-
-        
     }//GEN-LAST:event_btn_bookRoomActionPerformed
-  }
+
+    
+    
     private void txt_daysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_daysActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_daysActionPerformed
