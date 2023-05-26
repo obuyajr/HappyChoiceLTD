@@ -60,27 +60,6 @@ public class book_room extends javax.swing.JFrame {
             }
     
     }
-    public void startCountdownTimer(int numOfDays, String roomNumber) {
-            // Calculate the expiration time based on the current date and the number of days
-            long expirationTimeMillis = System.currentTimeMillis() + (numOfDays * 1 * 1000);
-
-            // Create a Runnable to update the room status to "UNBOOKED" when the countdown expires
-            Runnable updateStatusTask = () -> {
-                try {
-                    PreparedStatement pstUpdateStatus = con.prepareStatement("UPDATE rooms SET Status = 'UNBOOKED' WHERE room_no = ?");
-                    pstUpdateStatus.setString(1, roomNumber);
-                    pstUpdateStatus.executeUpdate();
-                    pstUpdateStatus.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            };
-
-            // Schedule the Runnable to run at the expiration time
-            ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-            long delayMillis = expirationTimeMillis - System.currentTimeMillis();
-            executorService.schedule(updateStatusTask, delayMillis, TimeUnit.MILLISECONDS);
-    }
 
 
 
@@ -555,8 +534,25 @@ public class book_room extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                //
+// Schedule a task to reset the room status to "UNBOOKED" after 1 minute
+ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+executorService.schedule(new Runnable() {
+    @Override
+    public void run() {
+        try {
+            String roomNo = (String) jcombo_availableRooms.getSelectedItem();
+            PreparedStatement pst5 = con.prepareStatement("UPDATE rooms SET Status = 'UNBOOKED' WHERE room_no = ?");
+            pst5.setString(1, roomNo);
+            pst5.executeUpdate();
+            pst5.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+}, 1, TimeUnit.MINUTES);
 
-               
+
                 
                 
                //jcombo_roomType.removeAllItems();
