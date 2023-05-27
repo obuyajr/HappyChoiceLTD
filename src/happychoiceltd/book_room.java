@@ -6,6 +6,8 @@ package happychoiceltd;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -296,11 +298,11 @@ public class book_room extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel9.setText("customer name");
+        jLabel9.setText("____________________");
 
-        jLabel10.setText("room type");
+        jLabel10.setText("____________________");
 
-        jLabel12.setText("phone");
+        jLabel12.setText("____________________");
 
         txt_total.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txt_total.setForeground(new java.awt.Color(0, 0, 204));
@@ -315,16 +317,18 @@ public class book_room extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabel9))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(jLabel8)
                         .addGap(18, 18, 18)
+                        .addComponent(txt_total, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel12)
-                            .addComponent(txt_total, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(132, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -349,6 +353,11 @@ public class book_room extends javax.swing.JFrame {
         btn_print.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_print.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/printer-solid-24.png"))); // NOI18N
         btn_print.setText("PRINT RECEIPT");
+        btn_print.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_printActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -535,24 +544,14 @@ public class book_room extends javax.swing.JFrame {
                     ex.printStackTrace();
                 }
                 //
-// Schedule a task to reset the room status to "UNBOOKED" after 1 minute
-ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-executorService.schedule(new Runnable() {
-    @Override
-    public void run() {
-        try {
-            String roomNo = (String) jcombo_availableRooms.getSelectedItem();
-            PreparedStatement pst5 = con.prepareStatement("UPDATE rooms SET Status = 'UNBOOKED' WHERE room_no = ?");
-            pst5.setString(1, roomNo);
-            pst5.executeUpdate();
-            pst5.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-}, 1, TimeUnit.MINUTES);
-
-
+                String customer_name = txt_custName.getText();
+                jLabel9.setText(customer_name);
+                String room_Type = jcombo_roomType.getSelectedItem().toString();
+                jLabel12.setText(room_Type);
+                String room_numberz = jcombo_availableRooms.getSelectedItem().toString();
+                jLabel10.setText(room_numberz);
+                String total_cost = txt_total.getText();
+                //jLabel9.setText(customer_name);
                 
                 
                //jcombo_roomType.removeAllItems();
@@ -584,6 +583,34 @@ executorService.schedule(new Runnable() {
     private void txt_daysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_daysActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_daysActionPerformed
+
+    private void btn_printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_printActionPerformed
+        // TODO add your handling code here:
+        
+                
+                
+                //
+//                 // Create the printout string
+//        StringBuilder printout = new StringBuilder();
+//        printout.append("Customer Name: ").append(customer_name).append("\n");
+//        printout.append("Room Number: ").append(room_numberz).append("\n");
+//        printout.append("Room Type: ").append(room_Type).append("\n");
+//        printout.append("Total: ").append(total_cost).append("\n");
+
+                //
+          
+        PrinterJob printerJob = PrinterJob.getPrinterJob();
+        boolean printDialogShown = printerJob.printDialog();
+
+        if (printDialogShown) {
+            try {
+                printerJob.print();
+            } catch (PrinterException ex) {
+                ex.printStackTrace();
+            }
+        }
+    
+    }//GEN-LAST:event_btn_printActionPerformed
 
     /**
      * @param args the command line arguments
