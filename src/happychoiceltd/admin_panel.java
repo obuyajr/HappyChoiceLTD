@@ -1064,15 +1064,7 @@ private boolean isRoomAvailable(String roomNo) {
     }//GEN-LAST:event_btn_deleteUserActionPerformed
 
     private void btn_logutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logutActionPerformed
-//         String username = txtUsername.getText();
-//
-//            if (session_login.isUserLoggedIn(username)) {
-//                session_login.logoutUser(username);
-//                System.out.println("Logout successful!");
-//            } else {
-//            System.out.println("User is not logged in!");
-//        }
-           
+
     }//GEN-LAST:event_btn_logutActionPerformed
 
     private void btn_clozActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clozActionPerformed
