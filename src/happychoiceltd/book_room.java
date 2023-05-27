@@ -30,6 +30,10 @@ import javax.swing.Timer;
  */
 public class book_room extends javax.swing.JFrame {
 
+    //
+    private Timer timer;
+    private String bookedRoomNumber;
+    //
     /**
      * Creates new form book_room
      */
@@ -147,10 +151,7 @@ public class book_room extends javax.swing.JFrame {
         e.printStackTrace();
     }
     }
-    //calculate total
-    public void calculateTotal(){
-
-    }
+    
 
    
 
@@ -543,15 +544,7 @@ public class book_room extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-                //
-                String customer_name = txt_custName.getText();
-                jLabel9.setText(customer_name);
-                String room_Type = jcombo_roomType.getSelectedItem().toString();
-                jLabel12.setText(room_Type);
-                String room_numberz = jcombo_availableRooms.getSelectedItem().toString();
-                jLabel10.setText(room_numberz);
-                String total_cost = txt_total.getText();
-                //jLabel9.setText(customer_name);
+                
                 
                 
                //jcombo_roomType.removeAllItems();
@@ -589,15 +582,7 @@ public class book_room extends javax.swing.JFrame {
         
                 
                 
-                //
-//                 // Create the printout string
-//        StringBuilder printout = new StringBuilder();
-//        printout.append("Customer Name: ").append(customer_name).append("\n");
-//        printout.append("Room Number: ").append(room_numberz).append("\n");
-//        printout.append("Room Type: ").append(room_Type).append("\n");
-//        printout.append("Total: ").append(total_cost).append("\n");
-
-                //
+      
           
         PrinterJob printerJob = PrinterJob.getPrinterJob();
         boolean printDialogShown = printerJob.printDialog();
