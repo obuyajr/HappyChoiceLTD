@@ -41,7 +41,7 @@ public class book_room extends javax.swing.JFrame {
         initComponents();
         connect();
         loadToJcombo();
-       calculateTotal();
+       
       
        txt_price.setEditable(false);
        txt_total.setEditable(false);
