@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -266,10 +267,22 @@ public class login extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+                UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+//                UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+                UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel"); //nice blue
+//                UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+//                UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel"); //yellow
+//                UIManager.setLookAndFeel("com.jtattoo.plaf.fast.FastLookAndFeel");
+//                UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
+//                UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+//                UIManager.setLookAndFeel("com.jtattoo.plaf.luna.LunaLookAndFeel");
+//                UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel"); //kali
+//                UIManager.setLookAndFeel("com.jtattoo.plaf.mint.MintLookAndFeel");
+//                UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
