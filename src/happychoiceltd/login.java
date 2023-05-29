@@ -68,7 +68,6 @@ public class login extends javax.swing.JFrame {
         txtUname = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btn_login = new javax.swing.JButton();
-        btn_exit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -94,14 +93,14 @@ public class login extends javax.swing.JFrame {
             }
         });
 
-        txtpassword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtpassword.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtpassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtpasswordActionPerformed(evt);
             }
         });
 
-        txtUname.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtUname.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Happy Choice GH");
@@ -113,17 +112,6 @@ public class login extends javax.swing.JFrame {
         btn_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_loginActionPerformed(evt);
-            }
-        });
-
-        btn_exit.setBackground(new java.awt.Color(255, 51, 51));
-        btn_exit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_exit.setForeground(new java.awt.Color(255, 255, 255));
-        btn_exit.setText("X");
-        btn_exit.setBorder(null);
-        btn_exit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_exitActionPerformed(evt);
             }
         });
 
@@ -147,15 +135,11 @@ public class login extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(txtUname))))
                 .addContainerGap(16, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btn_exit, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(btn_exit, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addContainerGap(45, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
@@ -246,12 +230,6 @@ public class login extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_loginActionPerformed
 
-    private void btn_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exitActionPerformed
-        // TODO add your handling code here:
-        //exit system
-        System.exit(0);
-    }//GEN-LAST:event_btn_exitActionPerformed
-
     private void jcomboUtypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboUtypeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcomboUtypeActionPerformed
@@ -306,7 +284,6 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_exit;
     private javax.swing.JButton btn_login;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
