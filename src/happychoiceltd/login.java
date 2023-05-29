@@ -211,6 +211,7 @@ public class login extends javax.swing.JFrame {
                     new book_room().setVisible(true);
                     this.dispose();
                 }
+                
 
             } else {
                JOptionPane.showMessageDialog(rootPane, "WRONG CREDENTIALS  ");
@@ -249,15 +250,15 @@ public class login extends javax.swing.JFrame {
 //                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
 //                    break;
 //                }
-                UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
-//                UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
-                UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel"); //nice blue
+//                UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+ //             UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+  //              UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel"); //nice blue
 //                UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 //                UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel"); //yellow
-//                UIManager.setLookAndFeel("com.jtattoo.plaf.fast.FastLookAndFeel");
+ //               UIManager.setLookAndFeel("com.jtattoo.plaf.fast.FastLookAndFeel");
 //                UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
 //                UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
-//                UIManager.setLookAndFeel("com.jtattoo.plaf.luna.LunaLookAndFeel");
+                UIManager.setLookAndFeel("com.jtattoo.plaf.luna.LunaLookAndFeel");
 //                UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel"); //kali
 //                UIManager.setLookAndFeel("com.jtattoo.plaf.mint.MintLookAndFeel");
 //                UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
