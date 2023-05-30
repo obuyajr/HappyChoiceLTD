@@ -167,6 +167,7 @@ public class admin_panel extends javax.swing.JFrame {
         btn_clear = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btn_cloz = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         rooms_display = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -187,6 +188,7 @@ public class admin_panel extends javax.swing.JFrame {
         jtable_user = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         btn_close = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -210,6 +212,8 @@ public class admin_panel extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         btn_logut = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -351,6 +355,8 @@ public class admin_panel extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -359,11 +365,17 @@ public class admin_panel extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_cloz)
                 .addContainerGap())
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(199, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(75, 75, 75)
                 .addComponent(btn_cloz)
                 .addContainerGap())
         );
@@ -420,7 +432,7 @@ public class admin_panel extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -590,6 +602,8 @@ public class admin_panel extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("jButton4");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -598,11 +612,17 @@ public class admin_panel extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_close)
                 .addContainerGap())
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(101, 101, 101)
+                .addComponent(jButton4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(93, Short.MAX_VALUE)
+                .addContainerGap(52, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(18, 18, 18)
                 .addComponent(btn_close)
                 .addContainerGap())
         );
@@ -860,13 +880,20 @@ public class admin_panel extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setText("jButton5");
+
+        jButton6.setText("jButton6");
+
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(btn_logut)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton6)
+                    .addComponent(jButton5)
+                    .addComponent(btn_logut))
                 .addContainerGap(924, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
@@ -874,7 +901,11 @@ public class admin_panel extends javax.swing.JFrame {
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(btn_logut)
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addComponent(jButton5)
+                .addGap(46, 46, 46)
+                .addComponent(jButton6)
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -1243,8 +1274,12 @@ private boolean isRoomAvailable(String roomNo) {
     private javax.swing.JButton btn_editUsers;
     private javax.swing.JButton btn_logut;
     private javax.swing.JButton btn_save;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private com.toedter.calendar.JDateChooser jDateChooser3;
